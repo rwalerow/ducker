@@ -69,7 +69,7 @@
 		isFetching,
 		error,
 		newDucksAvailable,
-		duckIdsToAdd: [duckId, duckId],
+		newDucksToAdd: [duckId, duckId],
 		duckIds: [duckId, duckId]
 	}
 }

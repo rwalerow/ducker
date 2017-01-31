@@ -1,3 +1,4 @@
+//Users
 {
 	type: AUTH_USER,
 	uid
@@ -128,7 +129,8 @@
 
 {
 	type: REMOVE_REPLY,
-	replyId
+	replyId,
+	duckId
 }
 
 // count
