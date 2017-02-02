@@ -50,14 +50,15 @@
 		isFetching,
 		error,
 		[duckId]: {
+			lastUpdated,
 			replies: {
-				lastUpdated,
 				[replyId]: {
 					name,
-					comment,
+					reply,
 					uid,
 					timestamp,
-					avatar
+					avatar,
+					replyId
 				}
 			}
 		}
