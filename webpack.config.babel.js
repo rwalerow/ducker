@@ -29,7 +29,8 @@ const base = {
   ],
   output: {
     path: PATHS.build,
-    filename: 'index_bundle.js'
+    filename: 'index_bundle.js',
+    publicPath: '/'
   },
   module: {
     loaders: [
@@ -43,12 +44,19 @@ const base = {
 }
 
 const developmentConfig = {
+  entry: [
+    PATHS.app,
+    'react-hot-loader/patch',
+    'webpack-dev-server/client?http://localhost:8080',
+    'webpack/hot/only-dev-server'
+  ],
   devtool: 'cheap-module-inline-source-map',
   devServer: {
     contentBase: PATHS.build,
     hot: true,
     inline: true,
-    progress: true
+    progress: true,
+    publicPath: '/'
   },
 	plugins: [HtmlWebpackPluginConfig, new webpack.HotModuleReplacementPlugin()]
 }
