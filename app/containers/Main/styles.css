@@ -1,3 +1,9 @@
-.color {
-  color: green;
+.container {
+  width: 100%;
+}
+
+.innerContainer {
+  max-width: 900px;
+  margin: 0px;
+
 }
