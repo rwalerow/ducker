@@ -1,13 +1,7 @@
+import { ref, firebaseAuth } from 'config/constants'
+
 export default function auth() {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve({
-        name: 'Rober Walerowicz',
-        avater: 'https://avatars3.githubusercontent.com/u/727230?v=3&s=460',
-        uid: 'rwalerow'
-      })
-    } , 2000)
-  })
+  return firebaseAuth().signInWithPopup(new firebaseAuth.GithubAuthProvider())
 }
 
 export function checkIfAuthed(store) {
@@ -15,5 +9,11 @@ export function checkIfAuthed(store) {
 }
 
 export function logout () {
-  console.log('logout')
+  return firebaseAuth().signOut()
+}
+
+export function saveUser(user) {
+  return ref.child(`users/${user.uid}`)
+    .set(user)
+    .then(() => user)
 }
