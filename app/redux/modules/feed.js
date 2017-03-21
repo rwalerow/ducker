@@ -1,3 +1,7 @@
+import { addListener } from './listeners'
+import { listenToFeed } from 'helpers/api'
+import { addMultipleDucks } from './ducks'
+
 const SETTING_FEED_LISTENER = 'SETTING_FEED_LISTENER'
 const SETTING_FEED_LISTENER_ERROR = 'SETTING_FEED_LISTENER_ERROR'
 const SETTING_FEED_LISTENER_SUCCESS = 'SETTING_FEED_LISTENER_SUCCESS'
@@ -24,19 +28,37 @@ function settingFeedListenerSuccess(duckIds){
   }
 }
 
-function addNewDuckToFee(duckId){
+function addNewDuckToFeed(duckId){
   return {
   	type: ADD_NEW_DUCK_ID_TO_FEED,
   	duckId
   }
 }
 
-function resetNewDucksAvailable(){
+export function resetNewDucksAvailable(){
   return {
   	type: RESET_NEW_DUCKS_AVAILABLE
   }
 }
 
+export function setAndHandleFeedListener() {
+  let initialFetch = true
+  return function (dispatch, getState) {
+    if(getState().listeners.feed === true) {
+      return
+    }
+
+    dispatch(addListener('feed'))
+    dispatch(settingFeedListener())
+
+    listenToFeed(({feed, sortedIds}) => {
+      dispatch(addMultipleDucks(feed))
+      initialFetch === true
+      ? dispatch(settingFeedListenerSuccess(sortedIds))
+      : dispatch(addNewDuckToFeed(sortedIds[0]))
+    }, (error) => dispatch(settingFeedListenerError(error)))
+  }
+}
 
 const initialFeedState = {
 	isFetching: false,
