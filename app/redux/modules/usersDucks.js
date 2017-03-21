@@ -39,7 +39,24 @@ const initialUserDuckState = {
 	duckIds: []
 }
 
-export default function usersDucks(state = initialUserDuckState, action) {
+function usersDuck (state = initialUserDuckState, action) {
+	switch (action.type) {
+		case ADD_SINGLE_USERS_DUCK:
+			return {
+				...state,
+				duckIds: state.duckIds.concat([action.duckId])
+			}
+		default:
+			return state
+	}
+}
+
+const initialUserDucks = {
+	isFetching: false,
+	error: ''
+}
+
+export default function usersDucks(state = initialUserDucks, action) {
 	switch (action.type) {
 		case FETCHING_USERS_DUCKS:
 			return {
